@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label() }}
+            {{ form.username(placeholder='Username') }}
+        </p>
+
+        <p>
+            {{ form.user_email.label() }}
+            {{ form.user_email(placeholder='Email') }}
+        </p>
+
+        <p>
+            {{ form.password1.label() }}
+            {{ form.password1(placeholder='Password') }}
+        </p>
+
+        <p>
+            {{ form.password2.label() }}
+            {{ form.password2(placeholder='Confirm Password') }}
+        </p>
+
+        <p>
+            {{ form.submit(placeholder='Submit') }}
+        </p>
+    </form>
+{% endblock %}
