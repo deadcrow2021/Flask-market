@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label() }}
+            {{ form.username(placeholder='Username') }}
+        </p>
+
+        <p>
+            {{ form.password.label() }}
+            {{ form.password(placeholder='Password') }}
+        </p>
+
+        <p>
+            {{ form.submit(placeholder='Submit') }}
+        </p>
+    </form>
+
+    <p>Do you have an account?</p>
+    <a href="{{ url_for('register_page') }}">Register</a>
+{% endblock %}
