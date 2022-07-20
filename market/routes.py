@@ -1,10 +1,11 @@
 from flask import flash, redirect, render_template, url_for
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required
 from .models import Item, User
 from .forms import RegisterForm, LoginForm
 from . import app, db
 
 @app.route("/")
+@login_required
 def home_page():
     items = Item.query.all()
     return render_template('home.html', items=items)
@@ -19,6 +20,8 @@ def register_page():
                               password=form.password1.data)
         db.session.add(user_to_create)
         db.session.commit()
+        login_user(user_to_create)
+        flash('Account has been successfully created.', category='info')
         return redirect(url_for('home_page'))
     if form.errors != {}:
         for error_message in form.errors.values():
@@ -38,3 +41,10 @@ def login_page():
         else:
             flash('Username or password are not match. Try again.', category='danger')
     return render_template('login.html', form=form)
+
+
+@app.route("/logout")
+def logout_page():
+    logout_user()
+    flash('You have been logged out.', category='info')
+    return redirect(url_for('home_page'))
