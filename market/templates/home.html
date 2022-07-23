@@ -1,11 +1,36 @@
 {% extends 'base.html' %}
 
     {% block content %}
-        <h1>Hello</h1>
-        {% for item in items %}
-            <p>{{ item.name }}</p>
-            <p>{{ item.price }}</p>
-            <p>{{ item.barcode }}</p>
-            <p>{{ item.description }}</p>
-        {% endfor %}
+        <div class="market-block">
+            <div class="market-row field-names">
+                <div class="market-element">
+                    <p>Name</p>
+                </div>
+                <div class="market-element">
+                    <p>Price</p>
+                </div>
+                <div class="market-element">
+                    <p>Barcode</p>
+                </div>
+                <div class="market-element">
+                    <p>Description</p>
+                </div>
+            </div>
+            {% for item in items %}
+                <div class="market-row">
+                    <div class="market-element">
+                        <p>{{ item.name }}</p>
+                    </div>
+                    <div class="market-element">
+                        <p>{{ item.price }}</p>
+                    </div>
+                    <div class="market-element">
+                        <p>{{ item.barcode }}</p>
+                    </div>
+                    <div class="market-element">
+                        <p>{{ item.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     {% endblock %}

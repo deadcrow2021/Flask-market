@@ -1,23 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label() }}
-            {{ form.username(placeholder='Username') }}
-        </p>
+    <div class="form-block">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-content">
+                <div class="form-field-block">
+                    <p>
+                        {{ form.username.label() }}
+                        {{ form.username(placeholder='Username', class='form-field') }}
+                    </p>
+                </div>
+                <div class="form-field-block">
+                    <p>
+                        {{ form.password.label() }}
+                        {{ form.password(placeholder='Password', class='form-field') }}
+                    </p>
+                </div>
+                <div class="form-field-block">
+                    <p>
+                        {{ form.submit(placeholder='Submit', class='form-submit') }}
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
 
-        <p>
-            {{ form.password.label() }}
-            {{ form.password(placeholder='Password') }}
-        </p>
-
-        <p>
-            {{ form.submit(placeholder='Submit') }}
-        </p>
-    </form>
-
-    <p>Do you have an account?</p>
-    <a href="{{ url_for('register_page') }}">Register</a>
+    <div class="info">
+        <p>Do you have an account?</p>
+        <a href="{{ url_for('register_page') }}">Register</a>
+    </div>
 {% endblock %}

@@ -3,27 +3,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Document</title>
 </head>
 <body>
-    <p><a href="{{ url_for('home_page') }}">Home</a></p>
-    {% if current_user.is_authenticated %}
-        <p>{{ current_user.username }}</p>
-        <p>Budget: {{ current_user.prettier_budget }}</p>
-        <p><a href="{{ url_for('logout_page') }}">Log Out</a></p>
-    {% else %}
-        <p><a href="{{ url_for('login_page') }}">Log In</a></p>
-        <p><a href="{{ url_for('register_page') }}">Register</a></p>
-    {% endif %}
+    <div class="header">
+        <div class="header-content">
+            <div class="header-element">
+                <p><a href="{{ url_for('home_page') }}">Home</a></p>
+            </div>
+            {% if current_user.is_authenticated %}
+                <div class="header-element">
+                    <p>{{ current_user.username }}</p>
+                </div>
+                <div class="header-element">
+                    <p>Budget: {{ current_user.prettier_budget }}</p>
+                </div>
+                <div class="header-element">
+                    <p><a href="{{ url_for('logout_page') }}">Log Out</a></p>
+                </div>
+            {% else %}
+                <div class="header-element">
+                    <p><a href="{{ url_for('login_page') }}">Log In</a></p>
+                </div>
+                <div class="header-element">
+                    <p><a href="{{ url_for('register_page') }}">Register</a></p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
-                {{ message }}
+                <div class="message-block">
+                    <div class="message-content">
+                        <p>{{ message }}</p>
+                    </div>
+                    <div class="message-content">
+                        <a href="" class="close">X</a>
+                    </div>
+                </div>
             {% endfor %}
         {% endif %}
     {% endwith %}
+    
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
 
-    {% block content %}
-    {% endblock %}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
