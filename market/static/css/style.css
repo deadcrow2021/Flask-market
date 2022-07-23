@@ -173,3 +173,7 @@ a:hover{
   font-size: 18px;
   width: 400px;
 }
+
+.item-row {
+  flex-direction: column;
+}

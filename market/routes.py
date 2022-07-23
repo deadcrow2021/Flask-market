@@ -2,13 +2,27 @@ from flask import flash, redirect, render_template, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from .models import Item, User
 from .forms import RegisterForm, LoginForm, AddItemForm
-from . import app, db
+from . import app, db, redis_client
+import json
 
 @app.route("/")
 @login_required
 def home_page():
     items = Item.query.all()
     return render_template('home.html', items=items)
+
+
+@app.route("/item/<id>")
+@login_required
+def item_page(id):
+    if redis_client.get(id):
+        item = redis_client.get(id)
+        item = json.loads(item)
+    else:
+        item = Item.query.filter_by(id=id).first().__dict__
+        item = {attr: item[attr] for attr in item if not attr.startswith('_') and attr != 'metadata'}
+        redis_client.set(id, json.dumps(item))
+    return render_template('item.html', item=item)
 
 
 @app.route("/add-item", methods=['GET', 'POST'])

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+        <div class="market-row item-row">
+            <div class="market-element">
+                <p>{{ item.name }}</p>
+            </div>
+            <div class="market-element">
+                <p>{{ item.price }}</p>
+            </div>
+            <div class="market-element">
+                <p>{{ item.barcode }}</p>
+            </div>
+            <div class="market-element">
+                <p>{{ item.description }}</p>
+            </div>
+        </div>
+    {% endblock %}

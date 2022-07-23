@@ -19,7 +19,7 @@
             {% for item in items %}
                 <div class="market-row">
                     <div class="market-element">
-                        <p>{{ item.name }}</p>
+                        <p><a href="{{ url_for('item_page', id=item.id) }}">{{ item.name }}</a></p>
                     </div>
                     <div class="market-element">
                         <p>{{ item.price }}</p>
@@ -28,7 +28,7 @@
                         <p>{{ item.barcode }}</p>
                     </div>
                     <div class="market-element">
-                        <p>{{ item.description }}</p>
+                        <p>{{ item.description[:15] + '..' }}</p>
                     </div>
                 </div>
             {% endfor %}
