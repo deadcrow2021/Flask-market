@@ -1,7 +1,16 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, TextAreaField
 from wtforms.validators import Length, DataRequired, Email, EqualTo, ValidationError
 from .models import User
+
+
+class AddItemForm(FlaskForm):
+    name = StringField(label='Name: ', validators=[Length(min=3, max=40), DataRequired()])
+    price = IntegerField(label= 'Price: ', validators=[DataRequired()])
+    barcode = IntegerField(label='Barcode: ', validators=[DataRequired()])
+    description = TextAreaField(label='Description: ', validators=[Length(max=5000), DataRequired()])
+    submit = SubmitField(label='Create Account')
+
 
 
 class RegisterForm(FlaskForm):

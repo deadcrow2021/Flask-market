@@ -1,7 +1,7 @@
 from flask import flash, redirect, render_template, url_for
-from flask_login import login_user, logout_user, login_required
+from flask_login import current_user, login_user, logout_user, login_required
 from .models import Item, User
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, AddItemForm
 from . import app, db
 
 @app.route("/")
@@ -11,13 +11,35 @@ def home_page():
     return render_template('home.html', items=items)
 
 
+@app.route("/add-item", methods=['GET', 'POST'])
+@login_required
+def add_item_page():
+    form = AddItemForm()
+    if form.validate_on_submit():
+        new_item = Item(
+            name=form.name.data,
+            price=form.price.data,
+            barcode=form.barcode.data,
+            description=form.description.data
+        )
+        db.session.add(new_item)
+        db.session.commit()
+        return redirect(url_for('home_page'))
+    if form.errors != {}:
+        for error_message in form.errors.values():
+            flash(f'Error in item add form: {error_message}', category='danger')
+    return render_template('add-item.html', form=form)
+
+
 @app.route("/register", methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
-        user_to_create = User(username=form.username.data,
-                              email=form.user_email.data,
-                              password=form.password1.data)
+        user_to_create = User(
+            username=form.username.data,
+            email=form.user_email.data,
+            password=form.password1.data
+        )
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)

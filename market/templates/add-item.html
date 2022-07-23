@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="form-block">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-content">
+                <div class="form-field-block">
+                    <p>
+                        {{ form.name.label() }}
+                        {{ form.name(placeholder='Item name', class='form-field') }}
+                    </p>
+                </div>
+                <div class="form-field-block">
+                    <p>
+                        {{ form.price.label() }}
+                        {{ form.price(placeholder='Price', class='form-field') }}
+                    </p>
+                </div>
+                <div class="form-field-block">
+                    <p>
+                        {{ form.barcode.label() }}
+                        {{ form.barcode(placeholder='Barcode', class='form-field') }}
+                    </p>
+                </div>
+                <div class="form-field-block">
+                    <div class="description-field-block">
+                        {{ form.description.label() }}
+                        {{ form.description(placeholder='Description', class='form-field description-field') }}
+                    </div>
+                </div>
+                <div class="form-field-block">
+                    <p>
+                        {{ form.submit(placeholder='Submit', class='form-submit') }}
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
